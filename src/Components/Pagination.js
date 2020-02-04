@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { finishedAssesstmentStandUp, finishedAssesstmentSecureAttachment } from '../actions'
+import { finishedAssesstmentStandUp, finishedAssesstmentSecureAttachment } from '../Actions'
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 
