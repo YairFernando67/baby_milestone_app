@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import MilestoneList from './MilestoneList';
 import styled from 'styled-components'
 
 const Spinner = styled.div`
