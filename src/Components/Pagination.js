@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { finishedAssesstmentStandUp, finishedAssesstmentSecureAttachment } from '../actions'
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 
@@ -49,11 +50,14 @@ export const Pagination = (props) => {
       }
     })
   }
-
+  const { page, total_pages } = props
   return (
-    <div>
-      
+    <div className="mt-5 d-flex justify-content-center mb-5 pb-5 pt-5 px-5">
+      {page > 1 ? <Button onClick={prevPage}>Back</Button> : '' }
+      {page < total_pages ? <Button onClick={nextPage}>Continue</Button> : '' }
+      {page === total_pages ? <Button onClick={sendAssestment}>Finish</Button> : '' }
     </div>
   )
-
 }
+
+export default connect(null,{ finishedAssesstmentStandUp, finishedAssesstmentSecureAttachment })(Pagination)

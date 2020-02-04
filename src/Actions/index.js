@@ -3,7 +3,9 @@ import {
   FETCH_SECURE_ATTACHMENT_MILESTONE,
   FETCH_STAND_UP_MILESTONE,
   EDIT_SECURE_ATTACHMENT_MILESTONE,
-  EDIT_STAND_UP_MILESTONE
+  EDIT_STAND_UP_MILESTONE,
+  FINISHED_ASSESSTMENT_SECURE_ATTACHMENT,
+  FINISHED_ASSESSTMENT_STAND_UP
 } from '../Types'
 
 export const fetchSecureAttachmentSkill = () => async (dispatch) => {
@@ -77,6 +79,21 @@ export const editAnswerSecureAttachment = (mil) => async (dispatch) => {
     payload: milestones
   })
 }
+
+export const finishedAssesstmentStandUp = () => (dispatch) => {
+  dispatch({
+    type: FINISHED_ASSESSTMENT_STAND_UP,
+    payload: true
+  })
+}
+
+export const finishedAssesstmentSecureAttachment = () => (dispatch) => {
+  dispatch({
+    type: FINISHED_ASSESSTMENT_SECURE_ATTACHMENT,
+    payload: true
+  })
+}
+
 
 const createSkill = (response) => {
   const rst = response.data.data.skill;
