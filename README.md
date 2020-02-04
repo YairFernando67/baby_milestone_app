@@ -38,7 +38,7 @@
 ## About The Project
 
 ![Screenshot Image](public/logoRepo.PNG) 
-![Screenshot Image](public/logoRepo2.PNG) 
+![Screenshot Image](public/logoRepo3.PNG) 
 
 ### Built With
 The project was developed using the following technologies:
