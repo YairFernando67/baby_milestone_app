@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { } from '../actions'
+import { editAnswerSecureAttachment, editAnswerStandUp } from '../actions'
 
 const Container = styled.div`
   & > div:nth-child(1) {
@@ -64,6 +64,17 @@ const ButtonContainer = styled.div`
 `
 
 export class ListItem extends Component {
+
+  onSelect(milestone) {
+    if (milestone.skill_id === 23) {
+      this.props.editAnswerStandUp(milestone)
+    }
+
+    if (milestone.skill_id === 2) {
+      this.props.editAnswerSecureAttachment(milestone)
+    }
+  }
+
   render() {
     return (
       <Container className="pl-5 pr-5 container mt-4 px-4 d-flex justify-content-between align-items-center border-bottom">
@@ -86,4 +97,4 @@ export class ListItem extends Component {
   }
 }
 
-export default connect(null, { })(ListItem)
+export default connect(null, { editAnswerSecureAttachment, editAnswerStandUp })(ListItem)
