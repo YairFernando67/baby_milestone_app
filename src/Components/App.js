@@ -5,7 +5,7 @@ import Header from './Header'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Route, BrowserRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { fetchSecureAttachmentSkill, fetchStandUpSkill } from '../actions'
+import { fetchSecureAttachmentSkill, fetchStandUpSkill } from '../Actions'
 
 export class App extends Component {
   componentDidMount() {

@@ -76,6 +76,10 @@ user@pc:~$ cd baby_milestone_app
 ```
 
 ```
+user@pc:~$ npm install
+```
+
+```
 user@pc:~$ npm start
 ```
 

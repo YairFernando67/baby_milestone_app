@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { editAnswerSecureAttachment, editAnswerStandUp } from '../actions'
+import { editAnswerSecureAttachment, editAnswerStandUp } from '../Actions'
 
 const Container = styled.div`
   & > div:nth-child(1) {
