@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ListItem from './ListItem';
+import Pagination from './Pagination'
 
 export class MilestoneList extends Component {
   state = {
