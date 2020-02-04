@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
-import ss from './secureAttachmentReducer';
-import dd from './standUpReducer';
+import secureAttachmentReducer from './secureAttachmentReducer';
+import standUpReducer from './standUpReducer';
 
 export default combineReducers({
-  first: () => 12
+  secure_attachment: secureAttachmentReducer,
+  stand_up: standUpReducer
 })

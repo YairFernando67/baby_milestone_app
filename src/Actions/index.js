@@ -4,8 +4,8 @@ import {
   FETCH_STAND_UP_MILESTONE
 } from '../Types'
 
-export default fetchSecureAttachmentSkill = () => async (dispatch) => {
-  const response = kinedu.get('/2/milestones');
+export const fetchSecureAttachmentSkill = () => async (dispatch) => {
+  const response = await kinedu.get('/2/milestones');
   const skillTwo = createSkill(response);
   dispatch({
     type: FETCH_SECURE_ATTACHMENT_MILESTONE,
@@ -13,8 +13,8 @@ export default fetchSecureAttachmentSkill = () => async (dispatch) => {
   })
 }
 
-export default fetchStandUpSkill = () => async (dispatch) => {
-  const response = kinedu.get('/23/milestones');
+export const fetchStandUpSkill = () => async (dispatch) => {
+  const response = await kinedu.get('/23/milestones');
   const skillOne = createSkill(response);
   dispatch({
     type: FETCH_STAND_UP_MILESTONE,
