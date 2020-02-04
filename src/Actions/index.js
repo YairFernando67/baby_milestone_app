@@ -1,7 +1,9 @@
 import kinedu from '../API/kinedu';
 import {
   FETCH_SECURE_ATTACHMENT_MILESTONE,
-  FETCH_STAND_UP_MILESTONE
+  FETCH_STAND_UP_MILESTONE,
+  EDIT_SECURE_ATTACHMENT_MILESTONE,
+  EDIT_STAND_UP_MILESTONE
 } from '../Types'
 
 export const fetchSecureAttachmentSkill = () => async (dispatch) => {
@@ -19,6 +21,60 @@ export const fetchStandUpSkill = () => async (dispatch) => {
   dispatch({
     type: FETCH_STAND_UP_MILESTONE,
     payload: skillOne
+  })
+}
+
+export const editAnswerStandUp = (mil) => async (dispatch) => {
+  switch (mil.answer) {
+    case 'Not Answer':
+      mil.answer = 'Completed'
+      break;
+    case 'Completed':
+      mil.answer = 'Uncompleted'
+      break;
+    case 'Uncompleted':
+      mil.answer = 'Completed'
+      break;
+    default:
+      break;
+  }
+  let milestones = localStorage.getItem('stand_up');
+  milestones = JSON.parse(milestones);
+  milestones.map(milestone => {
+    if (milestone.id === mil.id) {
+      milestone.answer = mil.answer
+    }
+  })
+  dispatch({
+    type: EDIT_STAND_UP_MILESTONE,
+    payload: milestones
+  })
+}
+
+export const editAnswerSecureAttachment = (mil) => async (dispatch) => {
+  switch (mil.answer) {
+    case 'Not Answer':
+      mil.answer = 'Completed'
+      break;
+    case 'Completed':
+      mil.answer = 'Uncompleted'
+      break;
+    case 'Uncompleted':
+      mil.answer = 'Completed'
+      break;
+    default:
+      break;
+  }
+  let milestones = localStorage.getItem('secure_attachment')
+  milestones = JSON.parse(milestones)
+  milestones.map(milstone => {
+    if(milstone.id === mil.id) {
+      milstone.answer = mil.answer
+    }
+  })
+  dispatch({
+    type: EDIT_SECURE_ATTACHMENT_MILESTONE,
+    payload: milestones
   })
 }
 
