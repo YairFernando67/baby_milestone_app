@@ -4,15 +4,25 @@ import {
   FINISHED_ASSESSTMENT_SECURE_ATTACHMENT
 } from '../Types';
 
-export default (state = {}, action) => {
+const INITIALSTATE = {
+  finished_assesstment: false,
+  answers: 0,
+}
+
+export default (state = INITIALSTATE, action) => {
   switch (action.type) {
     case FETCH_SECURE_ATTACHMENT_MILESTONE:
-      return action.payload;
+      return {...state, main_info: action.payload.main_info, milestones: action.payload.milestones }
     case EDIT_SECURE_ATTACHMENT_MILESTONE:
-      localStorage.secure_attachment = JSON.stringify(action.payload);
-      return {...state, milestones: action.payload}
+      // localStorage.secure_attachment = JSON.stringify(action.payload.milestones);
+      let nState = { ...state };
+      nState.milestones = action.payload.milestones
+      nState.answers = action.payload.answers
+      return {...nState}
     case FINISHED_ASSESSTMENT_SECURE_ATTACHMENT:
-      return {...state, finished_assesstment: action.payload}
+      let newState = {...state};
+      newState.finished_assesstment = action.payload
+      return { ...newState }
     default:
       return state;
   }

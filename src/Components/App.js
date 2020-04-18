@@ -12,6 +12,11 @@ export class App extends Component {
   componentDidMount() {
     this.props.fetchSecureAttachmentSkill();
     this.props.fetchStandUpSkill();
+    // if (this.props.secure_attachment.milestones && this.props.stand_up.milestones) {
+    //   console.count("count");
+    //   localStorage.stand_up = JSON.stringify(this.props.stand_up);
+    //   localStorage.secure_attachment = JSON.stringify(this.props.secure_attachment);
+    // }
   }
   render() {
     return (
@@ -28,4 +33,12 @@ export class App extends Component {
   }
 }
 
-export default connect(null, { fetchSecureAttachmentSkill, fetchStandUpSkill})(App);
+const mapStateToProps = state => {
+  console.log("INITIAL STATE: ",state);
+  return {
+    stand_up: state.stand_up,
+    secure_attachment: state.secure_attachment
+  }
+}
+
+export default connect(mapStateToProps, { fetchSecureAttachmentSkill, fetchStandUpSkill})(App);

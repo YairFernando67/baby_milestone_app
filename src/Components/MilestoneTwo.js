@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import MilestoneList from './MilestoneList';
 import styled from 'styled-components';
+import { getLocalStorate, setLocalStorage } from './LocalStorage/LocalStorage';
 
 const Spinner = styled.div`
   position: absolute;
@@ -15,16 +16,24 @@ const Spinner = styled.div`
 
 export class MilestoneTwo extends Component {
   render() {
-    const { milestones, main_info } = this.props.stand_up;
-    let stand_up = localStorage.getItem('stand_up');
-    stand_up = JSON.parse(stand_up);
-    if (this.props.stand_up.milestones) {
-      if (stand_up === null ) {
-        return <MilestoneList milestones={milestones} age_range={main_info.age_range} />
-      } else {
-        return <MilestoneList milestones={stand_up} age_range={main_info.age_range} />
-      }
+    if (this.props.stand_up.milestones && getLocalStorate('stand_up') === null) {
+      console.log("ENTRO")
+      // localStorage.stand_up = JSON.stringify(this.props.stand_up);
+      setLocalStorage('stand_up', this.props.stand_up);
+      // localStorage.setItem('stand_up', JSON.stringify(this.props.stand_up));
+      const { milestones, main_info } = this.props.stand_up;
+      return <MilestoneList milestones={milestones} age_range={main_info.age_range} />
     }
+    
+    if (getLocalStorate('stand_up') !== null ) {
+      let stand_up = getLocalStorate('stand_up');
+      console.log(stand_up);
+      const { milestones } = stand_up;
+      console.log(stand_up.main_info.age_range);
+      console.log(milestones);
+      return <MilestoneList milestones={milestones} age_range={stand_up.main_info.age_range} />
+    }
+
     return (
       <Spinner className="spinner-grow text-primary" role="status">
         <span className="sr-only">Loading...</span>

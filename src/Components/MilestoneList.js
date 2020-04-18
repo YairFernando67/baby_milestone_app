@@ -12,7 +12,6 @@ export class MilestoneList extends Component {
   }
 
   componentDidMount() {
-    console.count("milestone list");
     if (this.props.milestones) {
       this.setPagination();
     }
@@ -21,12 +20,12 @@ export class MilestoneList extends Component {
   setPagination = () => {
     let total_pages = Math.ceil(this.props.milestones.length / this.state.per_page)
     this.setState({ total_pages })
-    if (this.props.milestones[0].skill_id === 23) {
-      localStorage.stand_up = JSON.stringify(this.props.milestones);
-    }
-    if (this.props.milestones[0].skill_id === 2) {
-      localStorage.secure_attachment = JSON.stringify(this.props.milestones);
-    }
+    // if (this.props.milestones[0].skill_id === 23) {
+    //   localStorage.stand_up = JSON.stringify(this.props.milestones);
+    // }
+    // if (this.props.milestones[0].skill_id === 2) {
+    //   localStorage.secure_attachment = JSON.stringify(this.props.milestones);
+    // }
   }
 
   nextPage = () => {

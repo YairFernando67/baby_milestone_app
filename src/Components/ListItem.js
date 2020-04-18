@@ -67,12 +67,13 @@ const ButtonContainer = styled.div`
 export class ListItem extends Component {
 
   onSelect(milestone) {
+    console.log(milestone);
     if (milestone.skill_id === 23) {
-      this.props.editAnswerStandUp(milestone)
+      this.props.editAnswerStandUp(milestone, this.props.stand_up_answers)
     }
 
     if (milestone.skill_id === 2) {
-      this.props.editAnswerSecureAttachment(milestone)
+      this.props.editAnswerSecureAttachment(milestone, this.props.sec_att_answers)
     }
   }
 
@@ -98,4 +99,11 @@ export class ListItem extends Component {
   }
 }
 
-export default connect(null, { editAnswerSecureAttachment, editAnswerStandUp })(ListItem)
+const mapStateToProps = (state) => {
+  return {
+    sec_att_answers: state.secure_attachment.answers,
+    stand_up_answers: state.stand_up.answers,
+  }
+}
+
+export default connect(mapStateToProps, { editAnswerSecureAttachment, editAnswerStandUp })(ListItem)

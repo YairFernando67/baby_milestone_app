@@ -28,7 +28,7 @@ export const fetchStandUpSkill = () => async (dispatch) => {
   })
 }
 
-export const editAnswerStandUp = (mil) => async (dispatch) => {
+export const editAnswerStandUp = (mil, answers) => async (dispatch) => {
   switch (mil.answer) {
     case 'Not Answer':
       mil.answer = 'Completed'
@@ -42,20 +42,35 @@ export const editAnswerStandUp = (mil) => async (dispatch) => {
     default:
       break;
   }
-  let milestones = localStorage.getItem('stand_up');
-  milestones = JSON.parse(milestones);
-  milestones.map(milestone => {
+  if (answers > 0) {
+    if (mil.answer === 'Completed') {
+      answers++
+    } else {
+      answers--
+    }
+  }
+
+  if (answers === 0) {
+    if (mil.answer === 'Completed') {
+      answers++
+    }
+  }
+  let stand_up = JSON.parse(localStorage.getItem('stand_up'));
+  stand_up.milestones.map(milestone => {
     if (milestone.id === mil.id) {
       milestone.answer = mil.answer
     }
   })
+  stand_up.answers = answers
+  localStorage.stand_up = JSON.stringify(stand_up);
+  let milestones = stand_up.milestones
   dispatch({
     type: EDIT_STAND_UP_MILESTONE,
-    payload: milestones
+    payload: { milestones, answers }
   })
 }
 
-export const editAnswerSecureAttachment = (mil) => async (dispatch) => {
+export const editAnswerSecureAttachment = (mil, answers) => async (dispatch) => {
   switch (mil.answer) {
     case 'Not Answer':
       mil.answer = 'Completed'
@@ -69,16 +84,31 @@ export const editAnswerSecureAttachment = (mil) => async (dispatch) => {
     default:
       break;
   }
-  let milestones = localStorage.getItem('secure_attachment')
-  milestones = JSON.parse(milestones)
-  milestones.map(milstone => {
+  if (answers > 0) {
+    if (mil.answer === 'Completed') {
+      answers++
+    } else {
+      answers--
+    }
+  }
+
+  if (answers === 0) {
+    if (mil.answer === 'Completed') {
+      answers++
+    }
+  }
+  let secure_attachment = JSON.parse(localStorage.getItem('secure_attachment'))
+  secure_attachment.milestones.map(milstone => {
     if(milstone.id === mil.id) {
       milstone.answer = mil.answer
     }
   })
+  secure_attachment.answers = answers
+  let milestones = secure_attachment.milestones
+  localStorage.secure_attachment = JSON.stringify(secure_attachment);
   dispatch({
     type: EDIT_SECURE_ATTACHMENT_MILESTONE,
-    payload: milestones
+    payload: { milestones, answers }
   })
 }
 
@@ -124,8 +154,7 @@ const createSkill = (response) => {
       title,
       description
     },
-    milestones: rst.milestones,
-    finished_assesstment: false
+    milestones: rst.milestones
   }
 
   return skill

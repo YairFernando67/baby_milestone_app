@@ -80,16 +80,14 @@ class Header extends React.Component {
   }
 
   render() {
-    console.log("This area color:,", this.props.area_color);
     const { area_color } = this.props;
-    let secure_attachment_title = '';
-    let secure_attachment_description = '';
-    if (this.props.secure_attachment.main_info) {
-      const { title, description } = this.props.secure_attachment.main_info;
-      secure_attachment_title = title;
-      secure_attachment_description = description
+    let stand_up_title = '';
+    let stand_up_description = '';
+    if (this.props.stand_up.main_info) {
+      const { title, description } = this.props.stand_up.main_info;
+      stand_up_title = title;
+      stand_up_description = description
     }
-    console.log("jejje")
     return(
       <HeaderContainer area_color={area_color}>
         <h1>Areas</h1>
@@ -104,8 +102,8 @@ class Header extends React.Component {
          
         </div>
         <div className="skill-info mt-4 pt-1 mt-1 pb-3 w-75 text-center">
-          <h3 className="text-center">{area_color ? this.props.stand_up.main_info.title : secure_attachment_title }</h3>
-          <p>{area_color ? this.props.stand_up.main_info.description : secure_attachment_description }</p>
+          <h3 className="text-center">{!area_color ? stand_up_title : this.props.secure_attachment.main_info.title }</h3>
+          <p>{!area_color ? stand_up_description : this.props.secure_attachment.main_info.description }</p>
         </div>
       </HeaderContainer>
     );
