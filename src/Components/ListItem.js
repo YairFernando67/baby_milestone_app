@@ -45,6 +45,7 @@ const ButtonContainer = styled.div`
     border-radius: 25px;
     padding: 10px 20px;
     font-weight: 500;
+    outline: none;
   }
 
   & > button.Answer {

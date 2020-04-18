@@ -5,7 +5,9 @@ import {
   EDIT_SECURE_ATTACHMENT_MILESTONE,
   EDIT_STAND_UP_MILESTONE,
   FINISHED_ASSESSTMENT_SECURE_ATTACHMENT,
-  FINISHED_ASSESSTMENT_STAND_UP
+  FINISHED_ASSESSTMENT_STAND_UP,
+  SET_AREA_COLOR,
+  TOGGLE_AREA_COLOR
 } from '../Types'
 
 export const fetchSecureAttachmentSkill = () => async (dispatch) => {
@@ -94,6 +96,18 @@ export const finishedAssesstmentSecureAttachment = () => (dispatch) => {
   })
 }
 
+export const setAreaColor = (status) => (dispatch) => {
+  dispatch({
+    type: SET_AREA_COLOR,
+    payload: status
+  })
+};
+
+export const toggleAreaColor = () => (dispatch) => {
+  dispatch({
+    type: TOGGLE_AREA_COLOR,
+  })
+}
 
 const createSkill = (response) => {
   const rst = response.data.data.skill;
