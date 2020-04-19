@@ -9,7 +9,9 @@ import {
   SET_AREA_COLOR,
   TOGGLE_AREA_COLOR,
   UPDATE_ANSWERS_SECURE_ATTACHMENT,
-  UPDATE_ANSWERS_STAND_UP
+  UPDATE_ANSWERS_STAND_UP,
+  UPDATE_NUM_MIL_SECURE_ATTACHMENT,
+  UPDATE_NUM_MIL_STAND_UP
 } from '../Types'
 
 export const fetchSecureAttachmentSkill = () => async (dispatch) => {
@@ -154,6 +156,20 @@ export const updateAnswersSecureAttachment = (answers) => (dispatch) => {
   dispatch({
     type: UPDATE_ANSWERS_SECURE_ATTACHMENT,
     payload: answers
+  })
+}
+
+export const updateNumMilStandUp = (num) => (dispatch) => {
+  dispatch({
+    type: UPDATE_NUM_MIL_STAND_UP,
+    payload: num
+  })
+}
+
+export const updateNumMilSecureAttachment = (num) => (dispatch) => {
+  dispatch({
+    type: UPDATE_NUM_MIL_SECURE_ATTACHMENT,
+    payload: num
   })
 }
 

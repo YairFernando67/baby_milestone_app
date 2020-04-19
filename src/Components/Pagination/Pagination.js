@@ -5,14 +5,26 @@ import styled from 'styled-components';
 import { milestoneError, milestoneSent } from '../Messages/Messages'
 import history from '../../history';
 
-const Button = styled.button`
-  background: #75B753;
-  color: #fff;
-  border-radius: 25px;
-  border: none;
-  padding: 10px 20px;
-  margin: 4px;
-  width: 200px;
+const PaginationContainer = styled.div`
+  & > button {
+    outline: none;
+    background: #75B753;
+    color: #fff;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 20px;
+    margin: 4px;
+    width: 200px;
+  }
+
+  & > button:not(:last-child) {
+    margin-right 2rem;
+  }
+
+  & > button:active,
+  & > button:focus {
+    outline: none;
+  }
 `
 
 export const Pagination = (props) => {
@@ -29,8 +41,8 @@ export const Pagination = (props) => {
   const sendAssestment = async () => {
     if(props.milestone[0].skill_id === 23) {
       console.log(props.stand_up_answers);
-      if (props.stand_up_answers < 9) {
-        milestoneError(props.stand_up_answers, 9)
+      if (props.stand_up_answers < props.stand_up_num_mil) {
+        milestoneError(props.stand_up_answers, props.stand_up_num_mil)
       } else {
         let rst = await milestoneSent();
         console.log(rst);
@@ -43,8 +55,8 @@ export const Pagination = (props) => {
     }
 
     if(props.milestone[0].skill_id === 2) {
-      if (props.secure_attachment_answers < 10) {
-        milestoneError(props.secure_attachment_answers, 10)
+      if (props.secure_attachment_answers < props.secure_attachment_num_mil) {
+        milestoneError(props.secure_attachment_answers, props.secure_attachment_num_mil)
       } else {
         let rst = await milestoneSent();
         if (rst) {
@@ -57,11 +69,11 @@ export const Pagination = (props) => {
   }
   const { page, total_pages } = props
   return (
-    <div className="mt-5 d-flex justify-content-center mb-5 pb-5 pt-5 px-5">
-      {page > 1 ? <Button onClick={prevPage}>Back</Button> : '' }
-      {page < total_pages ? <Button onClick={nextPage}>Continue</Button> : '' }
-      {page === total_pages ? <Button onClick={sendAssestment}>Finish</Button> : '' }
-    </div>
+    <PaginationContainer className="mt-5 d-flex justify-content-center mb-5 pb-5 pt-5 px-5">
+      {page > 1 ? <button onClick={prevPage}>Back</button> : '' }
+      {page < total_pages ? <button onClick={nextPage}>Continue</button> : '' }
+      {page === total_pages ? <button onClick={sendAssestment}>Finish</button> : '' }
+    </PaginationContainer>
   )
 }
 
@@ -69,6 +81,8 @@ const mapStateToProps = state => {
   return {
     stand_up_answers: state.stand_up.answers,
     secure_attachment_answers: state.secure_attachment.answers,
+    stand_up_num_mil: state.stand_up.numMil,
+    secure_attachment_num_mil: state.secure_attachment.numMil,
   }
 }
 

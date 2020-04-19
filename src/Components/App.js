@@ -5,7 +5,12 @@ import Header from './Header/Header'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Route, Router, Switch } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { fetchSecureAttachmentSkill, fetchStandUpSkill, updateAnswersStandUp, updateAnswersSecureAttachment } from '../Actions'
+import { fetchSecureAttachmentSkill, 
+          fetchStandUpSkill, 
+          updateAnswersStandUp, 
+          updateAnswersSecureAttachment,
+          updateNumMilSecureAttachment,
+          updateNumMilStandUp } from '../Actions'
 import history from '../history';
 import { getLocalStorate } from './LocalStorage/LocalStorage';
 
@@ -15,10 +20,12 @@ export class App extends Component {
     this.props.fetchStandUpSkill();
     if (getLocalStorate('stand_up') !== null ) {
       let stand_up = getLocalStorate('stand_up');
+      this.props.updateNumMilStandUp(stand_up.milestones.length)
       this.props.updateAnswersStandUp(stand_up.answers);
     }
     if (getLocalStorate('secure_attachment') !== null ) {
       let secure_attachment = getLocalStorate('secure_attachment');
+      this.props.updateNumMilSecureAttachment(secure_attachment.milestones.length)
       this.props.updateAnswersSecureAttachment(secure_attachment.answers);
     }
   }
@@ -48,4 +55,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, { fetchSecureAttachmentSkill, 
                 fetchStandUpSkill, 
                 updateAnswersStandUp, 
-                updateAnswersSecureAttachment })(App);
+                updateAnswersSecureAttachment,
+                updateNumMilSecureAttachment,
+                updateNumMilStandUp })(App);

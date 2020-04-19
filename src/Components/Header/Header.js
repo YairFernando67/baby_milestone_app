@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { setAreaColor, toggleAreaColor } from '../../Actions'
+import MilestoneDetail from '../Milestones/MilestoneList/MilestoneDetail/MilestoneDetail';
 
 const HeaderContainer = styled.div`
   background: ${props => props.area_color ? "#D43571" : "#1FADDF"};
@@ -89,8 +90,13 @@ class Header extends React.Component {
       stand_up_title = title;
       stand_up_description = description
     }
+    const { answers, numMil } = this.props.secure_attachment;
+    console.log(answers)
     return(
       <HeaderContainer area_color={area_color}>
+        { area_color ? <MilestoneDetail answers={answers} numMil={numMil} /> : 
+              <MilestoneDetail answers={this.props.stand_up.answers} numMil={this.props.stand_up.numMil} />}
+        
         <h1>Areas</h1>
         <div className="menu-container border-bottom pb-4 w-75">
           {!this.props.finish_secure_attachment ? 
@@ -114,9 +120,9 @@ class Header extends React.Component {
 const mapStateToProps = state => {
   return {
     stand_up: state.stand_up,
+    secure_attachment: state.secure_attachment,
     finish_stand_up: state.stand_up.finished_assesstment,
     finish_secure_attachment: state.secure_attachment.finished_assesstment,
-    secure_attachment: state.secure_attachment,
     area_color: state.header.area_color
   }
 }

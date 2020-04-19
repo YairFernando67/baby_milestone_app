@@ -18,16 +18,17 @@ const Spinner = styled.div`
 export class MilestoneTwo extends Component {
   render() {
     if (this.props.stand_up.milestones && getLocalStorate('stand_up') === null) {
+      this.props.stand_up.numMil = this.props.stand_up.milestones.length;
       setLocalStorage('stand_up', this.props.stand_up);
-      const { milestones, main_info } = this.props.stand_up;
-      return <MilestoneList milestones={milestones} age_range={main_info.age_range} />
+      const { milestones, main_info, answers, numMil } = this.props.stand_up;
+      return <MilestoneList milestones={milestones} age_range={main_info.age_range} answers={answers} numMil={numMil} />
     }
     
     if (getLocalStorate('stand_up') !== null ) {
       let stand_up = getLocalStorate('stand_up');
       // this.props.updateAnswersStandUp(stand_up.answers);
-      const { milestones, main_info } = stand_up;
-      return <MilestoneList milestones={milestones} age_range={main_info.age_range} />
+      const { milestones, main_info, answers, numMil } = stand_up;
+      return <MilestoneList milestones={milestones} age_range={main_info.age_range} answers={answers} numMil={numMil} />
     }
 
     return (

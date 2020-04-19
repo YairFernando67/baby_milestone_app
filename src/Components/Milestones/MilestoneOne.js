@@ -17,6 +17,7 @@ const Spinner = styled.div`
 export class MilestoneOne extends Component {
   render() {
     if (this.props.secure_attachment.milestones && getLocalStorate('secure_attachment') === null) {
+      this.props.secure_attachment.numMil = this.props.secure_attachment.milestones.length;
       setLocalStorage('secure_attachment', this.props.secure_attachment);
       const { milestones, main_info } = this.props.secure_attachment;
       return <MilestoneList milestones={milestones} age_range={main_info.age_range} />
