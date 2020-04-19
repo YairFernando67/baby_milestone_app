@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import MilestoneOne from './MilestoneOne'
-import MilestoneTwo from './MilestoneTwo'
-import Header from './Header'
+import MilestoneOne from './Milestones/MilestoneOne'
+import MilestoneTwo from './Milestones/MilestoneTwo'
+import Header from './Header/Header'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Route, Router, Switch } from 'react-router-dom'
 import { connect } from 'react-redux';

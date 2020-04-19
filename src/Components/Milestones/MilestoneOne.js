@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import MilestoneList from './MilestoneList';
+import MilestoneList from './MilestoneList/MilestoneList';
 import styled from 'styled-components'
-import { getLocalStorate, setLocalStorage } from './LocalStorage/LocalStorage';
+import { getLocalStorate, setLocalStorage } from '../LocalStorage/LocalStorage';
 
 const Spinner = styled.div`
   position: absolute;

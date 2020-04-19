@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { finishedAssesstmentStandUp, finishedAssesstmentSecureAttachment, toggleAreaColor } from '../Actions'
+import { finishedAssesstmentStandUp, finishedAssesstmentSecureAttachment, toggleAreaColor } from '../../Actions'
 import styled from 'styled-components';
-import Swal from 'sweetalert2';
-import { milestoneError, milestoneSent } from './Messages/Messages'
-import history from '../history';
+import { milestoneError, milestoneSent } from '../Messages/Messages'
+import history from '../../history';
 
 const Button = styled.button`
   background: #75B753;
@@ -54,19 +53,7 @@ export const Pagination = (props) => {
           props.toggleAreaColor();
         }
       }
-    }
-
-    // if(props.milestone[0].skill_id === 2) {
-    //   props.finishedAssesstmentStandUp()
-    //   history.push('/')
-    // }
-    // if(props.milestone[0].skill_id === 23) {
-    //   props.finishedAssesstmentSecureAttachment()
-    //   history.push('/physical')
-    // }
-    // props.toggleAreaColor();
-  
-    
+    }    
   }
   const { page, total_pages } = props
   return (

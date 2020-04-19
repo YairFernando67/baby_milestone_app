@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
-import ListItem from './ListItem';
-import Pagination from './Pagination'
+import ListItem from './ListItem/ListItem';
+import Pagination from '../../Pagination/Pagination'
+import MilestoneDetail from './MilestoneDetail/MilestoneDetail'
+import styled from 'styled-components';
+
+const ListContainer = styled.div`
+  position: relative;
+
+`
 
 export class MilestoneList extends Component {
   state = {
@@ -36,11 +43,12 @@ export class MilestoneList extends Component {
     const { initial_page, final_page } = this.state
     if (this.props.milestones) {
       return(
-        <div>
+        <ListContainer>
+          <MilestoneDetail />
           {this.props.milestones.slice(initial_page, final_page).map(mil => (
             <ListItem key={mil.id} milestone={mil} age_range={this.props.age_range} />
           ))}
-        </div>
+        </ListContainer>
       )
     }
   }

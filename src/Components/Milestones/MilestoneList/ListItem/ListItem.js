@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { editAnswerSecureAttachment, editAnswerStandUp, updateAnswersStandUp } from '../Actions'
-import { getLocalStorate } from './LocalStorage/LocalStorage';
+import { editAnswerSecureAttachment, editAnswerStandUp, updateAnswersStandUp } from '../../../../Actions'
 
 const Container = styled.div`
   & > div:nth-child(1) {
@@ -71,8 +70,6 @@ export class ListItem extends Component {
     console.log(milestone);
     if (milestone.skill_id === 23) {
       this.props.editAnswerStandUp(milestone, this.props.stand_up_answers)
-      // let stand_up = getLocalStorate('stand_up');
-      // this.props.updateAnswersStandUp(stand_up.answers);
     }
 
     if (milestone.skill_id === 2) {

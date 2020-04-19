@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { setAreaColor, toggleAreaColor } from '../Actions'
+import { setAreaColor, toggleAreaColor } from '../../Actions'
 
 const HeaderContainer = styled.div`
   background: ${props => props.area_color ? "#D43571" : "#1FADDF"};
@@ -28,6 +28,7 @@ const HeaderContainer = styled.div`
     & > button:disabled {
       cursor: not-allowed;
       opacity: .8;
+      background-color: red;
     }
 
 
