@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 const milestoneError = (answers, num) => {
   Swal.fire({
     icon: 'error',
-    title: 'Milestons completed: ' + answers + ' of ' + num,
+    title: 'Milestons answered: ' + answers + ' of ' + num,
     text: 'Please answer every milestone before!!'
   })
 }
@@ -18,21 +18,11 @@ const milestoneConfirmation = async () => {
     cancelButtonColor: '#D43571',
     confirmButtonText: 'Yes, send it!'
   })
-  // .then((result) => {
-  //   if(result.value) {
-  //     Swal.fire(
-  //       'Success',
-  //       'You have successfuly completed the assesstment!!',
-  //       'success'
-  //     )
-  //   }
-  // })
 }
 
 const milestoneSent = async () => {
   let rst = await milestoneConfirmation();
   if (rst.value) {
-    // console.log("yess");
     Swal.fire(
       'Success',
       'You have successfuly completed the assesstment!!',

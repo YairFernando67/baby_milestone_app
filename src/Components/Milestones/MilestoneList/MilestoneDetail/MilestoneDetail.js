@@ -31,10 +31,10 @@ const ContainerMilDetail = styled.div`
     top: 73%;
     right: 100%;
     background: #fff;
-    padding: .5rem 1rem;
+    padding: 1rem 2rem;
     
     flex-direction: column;
-    width: 9rem;
+    width: 13rem;
     border-radius: 3px;
     border: 1px solid #ccc;
     transition: all 0.5s ease-in;
@@ -47,16 +47,23 @@ const ContainerMilDetail = styled.div`
     display: block;
     color: #212529;
   }
+
+  & > .details > span:not(:last-child) {
+    margin-bottom: .5rem;
+  }
 `
 
 const MilestoneDetail = (props) => {
+  console.log("rest: ", props)
+  console.log("mil: ", props.numMil)
   return (
     <ContainerMilDetail>
       <Icon name="icon-star" />
       <div className="details">
         <span>Milestones: <strong>{props.numMil}</strong></span>
-        <span>Answered: <strong>{props.answers}</strong></span>
-        <span>Not Answer: <strong>{props.numMil - props.answers}</strong></span>
+        <span>Completed: <strong>{props.answers.completed}</strong></span>
+        <span>Uncompleted: <strong>{props.answers.uncompleted}</strong></span>
+        <span>Not Answer: <strong>{props.numMil - (props.answers.uncompleted + props.answers.completed)}</strong></span>
       </div>
 
     </ContainerMilDetail>

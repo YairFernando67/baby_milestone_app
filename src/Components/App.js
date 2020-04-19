@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MilestoneOne from './Milestones/MilestoneOne'
 import MilestoneTwo from './Milestones/MilestoneTwo'
+import Finished from './Finished/Finished'
 import Header from './Header/Header'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Route, Router, Switch } from 'react-router-dom'
@@ -37,6 +38,7 @@ export class App extends Component {
           <Switch>
             <Route path="/" exact component={MilestoneTwo} />
             <Route path="/physical" exact component={MilestoneOne} />
+            <Route path="/finished_milestones" exact component={Finished} />
           </Switch>
         </Router>
       </div>

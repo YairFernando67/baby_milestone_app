@@ -8,7 +8,10 @@ import {
 
 const INITIALSTATE = {
   finished_assesstment: false,
-  answers: 0,
+  answers: {
+    completed: 0,
+    uncompleted: 0
+  },
   numMil: null
 }
 

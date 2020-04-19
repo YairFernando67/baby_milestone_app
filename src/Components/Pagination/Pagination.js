@@ -40,9 +40,9 @@ export const Pagination = (props) => {
 
   const sendAssestment = async () => {
     if(props.milestone[0].skill_id === 23) {
-      console.log(props.stand_up_answers);
-      if (props.stand_up_answers < props.stand_up_num_mil) {
-        milestoneError(props.stand_up_answers, props.stand_up_num_mil)
+      let { completed, uncompleted } = props.stand_up_answers
+      if ((completed + uncompleted) < props.stand_up_num_mil) {
+        milestoneError((completed + uncompleted), props.stand_up_num_mil)
       } else {
         let rst = await milestoneSent();
         console.log(rst);
@@ -55,7 +55,8 @@ export const Pagination = (props) => {
     }
 
     if(props.milestone[0].skill_id === 2) {
-      if (props.secure_attachment_answers < props.secure_attachment_num_mil) {
+      let { completed, uncompleted } = props.secure_attachment_answers
+      if ((completed + uncompleted) < props.secure_attachment_num_mil) {
         milestoneError(props.secure_attachment_answers, props.secure_attachment_num_mil)
       } else {
         let rst = await milestoneSent();

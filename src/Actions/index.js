@@ -33,6 +33,8 @@ export const fetchStandUpSkill = () => async (dispatch) => {
 }
 
 export const editAnswerStandUp = (mil, answers) => async (dispatch) => {
+  let before = mil.answer;
+  
   switch (mil.answer) {
     case 'Not Answer':
       mil.answer = 'Completed'
@@ -46,19 +48,22 @@ export const editAnswerStandUp = (mil, answers) => async (dispatch) => {
     default:
       break;
   }
-  if (answers > 0) {
-    if (mil.answer === 'Completed') {
-      answers++
-    } else {
-      answers--
-    }
-  }
 
-  if (answers === 0) {
-    if (mil.answer === 'Completed') {
-      answers++
-    }
+  if (mil.answer === 'Completed' && before === 'Not Answer') {
+    console.log("entro");
+    answers.completed++
+  } else if (mil.answer === 'Completed') {
+    console.log("entro 2");
+    answers.completed++
+    answers.uncompleted--
   }
+  if (mil.answer === 'Uncompleted' && before === 'Not Answer') {
+    answers.uncompleted++
+  } else if (mil.answer === 'Uncompleted') {
+    answers.completed--
+    answers.uncompleted++
+  }
+ 
   let stand_up = JSON.parse(localStorage.getItem('stand_up'));
   stand_up.milestones.map(milestone => {
     if (milestone.id === mil.id) {
@@ -75,6 +80,8 @@ export const editAnswerStandUp = (mil, answers) => async (dispatch) => {
 }
 
 export const editAnswerSecureAttachment = (mil, answers) => async (dispatch) => {
+  console.log("MILESTONE ANSWER BEFORE: ", mil.answer)
+  let before = mil.answer;
   switch (mil.answer) {
     case 'Not Answer':
       mil.answer = 'Completed'
@@ -88,19 +95,24 @@ export const editAnswerSecureAttachment = (mil, answers) => async (dispatch) => 
     default:
       break;
   }
-  if (answers > 0) {
-    if (mil.answer === 'Completed') {
-      answers++
-    } else {
-      answers--
-    }
+
+  console.log("MILESTONE ANSWER AFTER: ", mil.answer)
+
+  if (mil.answer === 'Completed' && before === 'Not Answer') {
+    console.log("entro");
+    answers.completed++
+  } else if (mil.answer === 'Completed') {
+    console.log("entro 2");
+    answers.completed++
+    answers.uncompleted--
+  }
+  if (mil.answer === 'Uncompleted' && before === 'Not Answer') {
+    answers.uncompleted++
+  } else if (mil.answer === 'Uncompleted') {
+    answers.completed--
+    answers.uncompleted++
   }
 
-  if (answers === 0) {
-    if (mil.answer === 'Completed') {
-      answers++
-    }
-  }
   let secure_attachment = JSON.parse(localStorage.getItem('secure_attachment'))
   secure_attachment.milestones.map(milstone => {
     if(milstone.id === mil.id) {
