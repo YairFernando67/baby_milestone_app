@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { finishedAssesstmentStandUp, finishedAssesstmentSecureAttachment, toggleAreaColor } from '../Actions'
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
+import { milestoneError, milestoneSent } from './Messages/Messages'
 import history from '../history';
 
 const Button = styled.button`
@@ -26,33 +27,46 @@ export const Pagination = (props) => {
     props.prevPage()
   }
 
-  const sendAssestment = () => {
-    Swal.fire({
-      title: 'Are you sure you want to send the assesstment?',
-      text: "You won't be able to revert this",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#D43571',
-      confirmButtonText: 'Yes, send it!'
-    }).then((result) => {
-      if(result.value) {
-        Swal.fire(
-          'Success',
-          'You have successfuly completed the assesstment!!',
-          'success'
-        )
-        if(props.milestone[0].skill_id === 2) {
-          props.finishedAssesstmentStandUp()
-          history.push('/')
-        }
-        if(props.milestone[0].skill_id === 23) {
+  const sendAssestment = async () => {
+    if(props.milestone[0].skill_id === 23) {
+      console.log(props.stand_up_answers);
+      if (props.stand_up_answers < 9) {
+        milestoneError(props.stand_up_answers, 9)
+      } else {
+        let rst = await milestoneSent();
+        console.log(rst);
+        if (rst) {
           props.finishedAssesstmentSecureAttachment()
           history.push('/physical')
+          props.toggleAreaColor();
         }
-        props.toggleAreaColor();
       }
-    })
+    }
+
+    if(props.milestone[0].skill_id === 2) {
+      if (props.secure_attachment_answers < 10) {
+        milestoneError(props.secure_attachment_answers, 10)
+      } else {
+        let rst = await milestoneSent();
+        if (rst) {
+          props.finishedAssesstmentStandUp()
+          history.push('/')
+          props.toggleAreaColor();
+        }
+      }
+    }
+
+    // if(props.milestone[0].skill_id === 2) {
+    //   props.finishedAssesstmentStandUp()
+    //   history.push('/')
+    // }
+    // if(props.milestone[0].skill_id === 23) {
+    //   props.finishedAssesstmentSecureAttachment()
+    //   history.push('/physical')
+    // }
+    // props.toggleAreaColor();
+  
+    
   }
   const { page, total_pages } = props
   return (
@@ -64,7 +78,14 @@ export const Pagination = (props) => {
   )
 }
 
-export default connect(null,{ 
+const mapStateToProps = state => {
+  return {
+    stand_up_answers: state.stand_up.answers,
+    secure_attachment_answers: state.secure_attachment.answers,
+  }
+}
+
+export default connect(mapStateToProps,{ 
   finishedAssesstmentStandUp,
   finishedAssesstmentSecureAttachment,
   toggleAreaColor })(Pagination)

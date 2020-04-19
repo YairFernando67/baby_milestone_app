@@ -16,17 +16,7 @@ const Spinner = styled.div`
 
 export class MilestoneOne extends Component {
   render() {
-    // let secure_attachment = JSON.parse(localStorage.getItem('secure_attachment'))
-    // console.log("SECURE ATTACHMENT: ", this.props.secure_attachment);
-    // if (this.props.secure_attachment.milestones) {
-    //   localStorage.secure_attachment = JSON.stringify(this.props.secure_attachment);
-    //   const { milestones, main_info } = this.props.secure_attachment;
-    //   return <MilestoneList milestones={milestones} age_range={main_info.age_range} />
-    // }
-
     if (this.props.secure_attachment.milestones && getLocalStorate('secure_attachment') === null) {
-      console.log("ENTRO")
-      // localStorage.secure_attachment = JSON.stringify(this.props.secure_attachment);
       setLocalStorage('secure_attachment', this.props.secure_attachment);
       const { milestones, main_info } = this.props.secure_attachment;
       return <MilestoneList milestones={milestones} age_range={main_info.age_range} />
@@ -34,11 +24,8 @@ export class MilestoneOne extends Component {
     
     if (getLocalStorate('secure_attachment') !== null ) {
       let secure_attachment = getLocalStorate('secure_attachment')
-      console.log(secure_attachment);
-      const { milestones } = secure_attachment;
-      console.log(secure_attachment.main_info.age_range);
-      console.log(milestones);
-      return <MilestoneList milestones={milestones} age_range={secure_attachment.main_info.age_range} />
+      const { milestones, main_info } = secure_attachment;
+      return <MilestoneList milestones={milestones} age_range={main_info.age_range} />
     }
     return (
       <Spinner className="spinner-grow text-danger" role="status">

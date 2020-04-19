@@ -7,7 +7,9 @@ import {
   FINISHED_ASSESSTMENT_SECURE_ATTACHMENT,
   FINISHED_ASSESSTMENT_STAND_UP,
   SET_AREA_COLOR,
-  TOGGLE_AREA_COLOR
+  TOGGLE_AREA_COLOR,
+  UPDATE_ANSWERS_SECURE_ATTACHMENT,
+  UPDATE_ANSWERS_STAND_UP
 } from '../Types'
 
 export const fetchSecureAttachmentSkill = () => async (dispatch) => {
@@ -138,6 +140,23 @@ export const toggleAreaColor = () => (dispatch) => {
     type: TOGGLE_AREA_COLOR,
   })
 }
+
+export const updateAnswersStandUp = (answers) => (dispatch) => {
+  console.log("answers from the action creator: ", answers);
+  dispatch({
+    type: UPDATE_ANSWERS_STAND_UP,
+    payload: answers
+  })
+}
+
+export const updateAnswersSecureAttachment = (answers) => (dispatch) => {
+  console.log("answers from the action creator: ", answers);
+  dispatch({
+    type: UPDATE_ANSWERS_SECURE_ATTACHMENT,
+    payload: answers
+  })
+}
+
 
 const createSkill = (response) => {
   const rst = response.data.data.skill;

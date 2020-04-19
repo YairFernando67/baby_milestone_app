@@ -5,18 +5,22 @@ import Header from './Header'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Route, Router, Switch } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { fetchSecureAttachmentSkill, fetchStandUpSkill } from '../Actions'
+import { fetchSecureAttachmentSkill, fetchStandUpSkill, updateAnswersStandUp, updateAnswersSecureAttachment } from '../Actions'
 import history from '../history';
+import { getLocalStorate } from './LocalStorage/LocalStorage';
 
 export class App extends Component {
   componentDidMount() {
     this.props.fetchSecureAttachmentSkill();
     this.props.fetchStandUpSkill();
-    // if (this.props.secure_attachment.milestones && this.props.stand_up.milestones) {
-    //   console.count("count");
-    //   localStorage.stand_up = JSON.stringify(this.props.stand_up);
-    //   localStorage.secure_attachment = JSON.stringify(this.props.secure_attachment);
-    // }
+    if (getLocalStorate('stand_up') !== null ) {
+      let stand_up = getLocalStorate('stand_up');
+      this.props.updateAnswersStandUp(stand_up.answers);
+    }
+    if (getLocalStorate('secure_attachment') !== null ) {
+      let secure_attachment = getLocalStorate('secure_attachment');
+      this.props.updateAnswersSecureAttachment(secure_attachment.answers);
+    }
   }
   render() {
     return (
@@ -41,4 +45,7 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchSecureAttachmentSkill, fetchStandUpSkill})(App);
+export default connect(mapStateToProps, { fetchSecureAttachmentSkill, 
+                fetchStandUpSkill, 
+                updateAnswersStandUp, 
+                updateAnswersSecureAttachment })(App);

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { editAnswerSecureAttachment, editAnswerStandUp } from '../Actions'
+import { editAnswerSecureAttachment, editAnswerStandUp, updateAnswersStandUp } from '../Actions'
+import { getLocalStorate } from './LocalStorage/LocalStorage';
 
 const Container = styled.div`
   & > div:nth-child(1) {
@@ -70,6 +71,8 @@ export class ListItem extends Component {
     console.log(milestone);
     if (milestone.skill_id === 23) {
       this.props.editAnswerStandUp(milestone, this.props.stand_up_answers)
+      // let stand_up = getLocalStorate('stand_up');
+      // this.props.updateAnswersStandUp(stand_up.answers);
     }
 
     if (milestone.skill_id === 2) {
@@ -106,4 +109,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { editAnswerSecureAttachment, editAnswerStandUp })(ListItem)
+export default connect(mapStateToProps, { editAnswerSecureAttachment, editAnswerStandUp, updateAnswersStandUp })(ListItem)
