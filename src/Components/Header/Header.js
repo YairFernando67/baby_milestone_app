@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { setAreaColor, toggleAreaColor } from '../../Actions'
+import { setAreaColor, toggleAreaColor, signIn, signOut } from '../../Actions'
 import MilestoneDetail from '../Milestones/MilestoneList/MilestoneDetail/MilestoneDetail';
+import Icon from '../Milestones/MilestoneList/MilestoneDetail/Icon'
 
 const HeaderContainer = styled.div`
   background: ${props => props.area_color ? "#D43571" : "#1FADDF"};
@@ -78,12 +79,66 @@ const HeaderContainer = styled.div`
 class Header extends React.Component {
   state = { area_color: false }
 
+   
+  componentDidMount() {
+    window.gapi.load('client:auth2', () => {
+      window.gapi.client.init({ 
+        clientId: '230762354455-6n0sp8gv1ed3nac6c5e22m1o426g3fsp.apps.googleusercontent.com',
+        scope: 'email'
+      }).then(() => {
+        this.auth = window.gapi.auth2.getAuthInstance();
+        this.onAuthChange(this.auth.isSignedIn.get());
+        this.auth.isSignedIn.listen(this.onAuthChange);
+      });
+    });
+  }
+  
+  onAuthChange = (isSignedIn) => {
+    if (isSignedIn) {
+      this.props.signIn(this.auth.currentUser.get().getId());
+    }else {
+      this.props.signOut();
+    }
+  };
+
+  onSignOutClick = () => {
+    this.auth.signOut();
+  }
+
   setBackground = () => {
     this.props.setAreaColor(false);
   }
 
   reSetBackground = () => {
     this.props.setAreaColor(true);
+  }
+
+  hideHeader = () => {
+    document.querySelector('.headerContainer').style.display = 'none';
+  }
+
+  renderAuthButton() {
+    if (this.props.isSignedIn === null) {
+      return null;
+    }else if (this.props.isSignedIn) {
+      return (
+      <button className="ui red google button" onClick={this.onSignOutClick}>
+          <Icon name="icon-google" />
+          Sign Out
+      </button>
+      )
+    }else {
+      this.hideHeader();
+      // return (
+      //   <LoginContainer>
+      //     <h2>Log in to Milestones</h2>
+      //     <button className="ui red google button" onClick={this.onSignInClick}>
+      //         <Icon name="icon-google" />
+      //         Sign In
+      //     </button>
+      //   </LoginContainer>
+      // )
+    }
   }
 
   render() {
@@ -100,7 +155,7 @@ class Header extends React.Component {
       <HeaderContainer area_color={area_color} className="headerContainer">
         { area_color ? <MilestoneDetail answers={answers} numMil={numMil} /> : 
               <MilestoneDetail answers={this.props.stand_up.answers} numMil={this.props.stand_up.numMil} />}
-        
+        {this.renderAuthButton()}
         <h1>Areas</h1>
         <div className="menu-container border-bottom pb-4 w-75">
           {!this.props.finish_secure_attachment ? 
@@ -127,8 +182,9 @@ const mapStateToProps = state => {
     secure_attachment: state.secure_attachment,
     finish_stand_up: state.stand_up.finished_assesstment,
     finish_secure_attachment: state.secure_attachment.finished_assesstment,
-    area_color: state.header.area_color
+    area_color: state.header.area_color,
+    isSignedIn: state.auth.isSignedIn
   }
 }
 
-export default connect(mapStateToProps, { setAreaColor, toggleAreaColor })(Header);
+export default connect(mapStateToProps, { setAreaColor, toggleAreaColor, signIn, signOut })(Header);

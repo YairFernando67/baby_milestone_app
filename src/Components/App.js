@@ -36,9 +36,8 @@ export class App extends Component {
       <div>
         <Router history={history}>
           <Header />
-            <Redirect from="/" to="/login" />
             <Route path="/login" component={GoogleLogin} />
-            { this.props.isSignedIn ? <Redirect from='/login' to='/' /> : null}
+            { this.props.isSignedIn ? <Redirect from='/login' to='/' /> : <Redirect from="/" to="/login" />}
           <Switch>
             <Route path="/" exact component={MilestoneTwo} />
             <Route path="/physical" exact component={MilestoneOne} />

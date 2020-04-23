@@ -4,7 +4,7 @@ import { signIn, signOut } from '../../Actions';
 import Icon from '../Milestones/MilestoneList/MilestoneDetail/Icon';
 import styled from 'styled-components';
 import Background from './Background';
-import history from '../../history'
+import Dots from './Dots';
 
 const LoginContainer = styled.div`
   position: absolute;
@@ -19,6 +19,7 @@ const LoginContainer = styled.div`
   flex-direction: column;
   height: 16rem;
   justify-content: space-around;
+  box-shadow: 0 50px 100px rgba(255, 255, 255, 0.1), 0 15px 35px rgba(255, 255, 255, 0.1), 0 5px 15px rgba(255, 255, 255, 0.2);
 
   h2 {
     font-size: 1.5rem;
@@ -30,15 +31,15 @@ const LoginContainer = styled.div`
     display: inline-block;
     width: 100%;
     margin-top: 1rem;
-    padding: 0.5rem 0;
+    padding: 0.7rem 0;
     border: none;
     background: #1396E7;
     border-radius: 3px;
     color: #fff;
 
     svg {
-      width: 2rem;
-      height: 2rem;
+      width: 1.5rem;
+      height: 1.5rem;
       fill: #fff;
       margin-right: 1rem;
     }
@@ -78,7 +79,6 @@ class GoogleLogin extends React.Component{
   }
 
   displayHeader = () => {
-    // history.push('/');
     document.querySelector('.headerContainer').style.display = 'block';
   }
 
@@ -87,19 +87,11 @@ class GoogleLogin extends React.Component{
       return null;
     }else if (this.props.isSignedIn) {
       this.displayHeader();
-      // return (
-      //   <LoginContainer>
-      //     <h2>Log Out to Milestones</h2>
-      //     <button className="ui red google button" onClick={this.onSignOutClick}>
-      //         <Icon name="icon-google" />
-      //         Sign Out
-      //     </button>
-      //   </LoginContainer>
-      // )
     }else {
       return (
         <LoginContainer>
-          <h2>Log in to Milestones</h2>
+          <Dots />
+          <h2>Baby Milestones</h2>
           <button className="ui red google button" onClick={this.onSignInClick}>
               <Icon name="icon-google" />
               Sign In
