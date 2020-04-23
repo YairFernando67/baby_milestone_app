@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { signIn, signOut } from '../../Actions';
-import Icon from '../Milestones/MilestoneList/MilestoneDetail/Icon';
+import Icon from '../Icon/Icon';
 import styled from 'styled-components';
 import Background from './Background';
 import Dots from './Dots';
@@ -71,6 +71,7 @@ class GoogleLogin extends React.Component{
   };
 
   onSignInClick = () => {
+    console.log(this.auth)
     this.auth.signIn();
   }
 

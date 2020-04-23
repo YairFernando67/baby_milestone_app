@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { setAreaColor, toggleAreaColor, signIn, signOut } from '../../Actions'
 import MilestoneDetail from '../Milestones/MilestoneList/MilestoneDetail/MilestoneDetail';
-import Icon from '../Milestones/MilestoneList/MilestoneDetail/Icon'
+import LogOut from '../LogOutButton/LogOut';
 
 const HeaderContainer = styled.div`
   background: ${props => props.area_color ? "#D43571" : "#1FADDF"};
@@ -13,7 +13,8 @@ const HeaderContainer = styled.div`
   text-align: center;
   color: #fff;
 
-  &:hover > .mil-detail {
+  &:hover > .mil-detail,
+  &:hover > .btnLogOut {
     transform: translate(0);
     opacity: 1;
   } 
@@ -122,10 +123,7 @@ class Header extends React.Component {
       return null;
     }else if (this.props.isSignedIn) {
       return (
-      <button className="ui red google button" onClick={this.onSignOutClick}>
-          <Icon name="icon-google" />
-          Sign Out
-      </button>
+        <LogOut onSignOutClick={this.onSignOutClick} />
       )
     }else {
       this.hideHeader();

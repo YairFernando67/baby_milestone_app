@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import Icon from './Icon';
+import Icon from '../../../Icon/Icon';
 
 const ContainerMilDetail = styled.div`
   position: absolute;
@@ -33,16 +33,16 @@ const ContainerMilDetail = styled.div`
     top: 73%;
     right: 100%;
     background: #fff;
+    transition: all 0.5s ease-in;
+    opacity: 0;
+    visivility: hidden;
+    transform: translateX(20px);
     padding: 1rem 2rem;
     
     flex-direction: column;
     width: 13rem;
     border-radius: 3px;
     border: 1px solid #ccc;
-    transition: all 0.5s ease-in;
-    opacity: 0;
-    visivility: hidden;
-    transform: translateX(20px);
   }
 
   & > .details > span {

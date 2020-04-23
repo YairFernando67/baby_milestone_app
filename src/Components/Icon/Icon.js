@@ -1,6 +1,6 @@
 import React from 'react'
 
-import icons from '../../../../Assets/sprite.svg'
+import icons from '../../Assets/sprite.svg'
 
 const Icon = props => {
 	return (
