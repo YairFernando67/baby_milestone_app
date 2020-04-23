@@ -37,8 +37,9 @@ export class App extends Component {
         <Router history={history}>
           <Header />
             <Redirect from="/" to="/login" />
-          <Switch>
             <Route path="/login" component={GoogleLogin} />
+            { this.props.isSignedIn ? <Redirect from='/login' to='/' /> : null}
+          <Switch>
             <Route path="/" exact component={MilestoneTwo} />
             <Route path="/physical" exact component={MilestoneOne} />
             <Route path="/finished_milestones" exact component={Finished} />
@@ -52,7 +53,8 @@ export class App extends Component {
 const mapStateToProps = state => {
   return {
     stand_up: state.stand_up,
-    secure_attachment: state.secure_attachment
+    secure_attachment: state.secure_attachment,
+    isSignedIn: state.auth.isSignedIn
   }
 }
 
