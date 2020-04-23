@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signIn, signOut } from '../../Actions';
-import Icon from '../Icon/Icon';
+import { signIn } from '../../Actions';
 import styled from 'styled-components';
 import Background from './Background';
 import Dots from './Dots';
+import ReactGoogleLogin from 'react-google-login';
+import ReactFacebookLogin from 'react-facebook-login';
+import { DOMGet } from '../Dom/Dom'
 
 const LoginContainer = styled.div`
   position: absolute;
@@ -17,7 +19,7 @@ const LoginContainer = styled.div`
   border-radius: 3px;
   display: flex;
   flex-direction: column;
-  height: 16rem;
+  height: 20rem;
   justify-content: space-around;
   box-shadow: 0 50px 100px rgba(255, 255, 255, 0.1), 0 15px 35px rgba(255, 255, 255, 0.1), 0 5px 15px rgba(255, 255, 255, 0.2);
 
@@ -47,61 +49,60 @@ const LoginContainer = styled.div`
 `
 
 class GoogleLogin extends React.Component{
-  
-  componentDidMount() {
-    window.gapi.load('client:auth2', () => {
-      window.gapi.client.init({ 
-        clientId: '230762354455-6n0sp8gv1ed3nac6c5e22m1o426g3fsp.apps.googleusercontent.com',
-        scope: 'email'
-      }).then(() => {
-        this.auth = window.gapi.auth2.getAuthInstance();
-        this.onAuthChange(this.auth.isSignedIn.get());
-        this.auth.isSignedIn.listen(this.onAuthChange);
-      });
-    });
-    document.querySelector('.headerContainer').style.display = 'none';
-  }
-
-  onAuthChange = (isSignedIn) => {
-    if (isSignedIn) {
-      this.props.signIn(this.auth.currentUser.get().getId());
-    }else {
-      this.props.signOut();
-    }
-  };
-
-  onSignInClick = () => {
-    console.log(this.auth)
-    this.auth.signIn();
-  }
-
-  onSignOutClick = () => {
-    this.auth.signOut();
-  }
 
   displayHeader = () => {
-    document.querySelector('.headerContainer').style.display = 'block';
+    if (DOMGet('.headerContainer')) {
+      DOMGet('.headerContainer').style.display = 'block';
+    }
   }
 
   renderAuthButton() {
-    if (this.props.isSignedIn === null) {
-      return null;
-    }else if (this.props.isSignedIn) {
+    if (this.props.isSignedIn) {
       this.displayHeader();
     }else {
       return (
         <LoginContainer>
           <Dots />
           <h2>Baby Milestones</h2>
-          <button className="ui red google button" onClick={this.onSignInClick}>
-              <Icon name="icon-google" />
-              Sign In
-          </button>
+          <ReactFacebookLogin  
+            appId="230094358267542"
+            textButton="Log in with Facebook"
+            fields="name, email, picture"
+            callback={this.responseFacebook}
+            cssClass="btn btn-outline-primary"
+          />
+
+          <ReactGoogleLogin 
+            clientId="230762354455-6n0sp8gv1ed3nac6c5e22m1o426g3fsp.apps.googleusercontent.com"
+            buttonText="Sign in with Google"
+            onSuccess={this.responseGoogle}
+            onFailure={this.responseGoogle}
+            className="btn btn-outline-danger"
+          />
         </LoginContainer>
       )
     }
   } 
 
+  responseGoogle = (res) => {
+    let userInfo = {
+      id: res.profileObj.googleId,
+      name: res.profileObj.name,
+      email: res.profileObj.email,
+      photoUrl: res.profileObj.imageUrl
+    }
+    this.props.signIn(userInfo);
+  }
+
+  responseFacebook = (res) => {
+    let userInfo = {
+      id: res.id,
+      name: res.name,
+      email: res.email,
+      photoUrl: res.picture.data.url
+    }
+    this.props.signIn(userInfo);
+  }
   
 
   render() {
@@ -118,4 +119,4 @@ const mapStateToProps = (state) => {
   return { isSignedIn: state.auth.isSignedIn }
 };
 
-export default connect( mapStateToProps, { signIn, signOut })(GoogleLogin);
+export default connect( mapStateToProps, { signIn })(GoogleLogin);

@@ -17,14 +17,22 @@ import {
   SIGN_OUT
 } from '../Types'
 
-export const signIn = (userId) => {
+export const signIn = (userInfo) => {
+  let user = { 
+    id: userInfo.id,
+    name: userInfo.name,
+    email: userInfo.email,
+    photoUrl: userInfo.photoUrl,
+  }
+  localStorage.userInfo = JSON.stringify(user);
   return {
     type: SIGN_IN,
-    payload: userId
+    payload: user
   };
 };
 
 export const signOut = () => {
+  localStorage.removeItem('userInfo')
   return {
     type: SIGN_OUT
   };

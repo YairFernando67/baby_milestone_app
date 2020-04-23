@@ -12,7 +12,8 @@ import { fetchSecureAttachmentSkill,
           updateAnswersStandUp, 
           updateAnswersSecureAttachment,
           updateNumMilSecureAttachment,
-          updateNumMilStandUp } from '../Actions'
+          updateNumMilStandUp,
+          signIn } from '../Actions'
 import history from '../history';
 import { getLocalStorate } from './LocalStorage/LocalStorage';
 
@@ -30,6 +31,12 @@ export class App extends Component {
       this.props.updateNumMilSecureAttachment(secure_attachment.milestones.length)
       this.props.updateAnswersSecureAttachment(secure_attachment.answers);
     }
+    if (getLocalStorate('userInfo') !== null) {
+      console.log("localstorage not null")
+      let userInfo = getLocalStorate('userInfo');
+      this.props.signIn(userInfo);
+    }
+
   }
   render() {
     return (
@@ -62,4 +69,5 @@ export default connect(mapStateToProps, { fetchSecureAttachmentSkill,
                 updateAnswersStandUp, 
                 updateAnswersSecureAttachment,
                 updateNumMilSecureAttachment,
-                updateNumMilStandUp })(App);
+                updateNumMilStandUp,
+                signIn })(App);

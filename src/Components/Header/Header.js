@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { setAreaColor, toggleAreaColor, signIn, signOut } from '../../Actions'
 import MilestoneDetail from '../Milestones/MilestoneList/MilestoneDetail/MilestoneDetail';
 import LogOut from '../LogOutButton/LogOut';
+import { DOMGet } from '../Dom/Dom'
 
 const HeaderContainer = styled.div`
   background: ${props => props.area_color ? "#D43571" : "#1FADDF"};
@@ -80,30 +81,8 @@ const HeaderContainer = styled.div`
 class Header extends React.Component {
   state = { area_color: false }
 
-   
-  componentDidMount() {
-    window.gapi.load('client:auth2', () => {
-      window.gapi.client.init({ 
-        clientId: '230762354455-6n0sp8gv1ed3nac6c5e22m1o426g3fsp.apps.googleusercontent.com',
-        scope: 'email'
-      }).then(() => {
-        this.auth = window.gapi.auth2.getAuthInstance();
-        this.onAuthChange(this.auth.isSignedIn.get());
-        this.auth.isSignedIn.listen(this.onAuthChange);
-      });
-    });
-  }
-  
-  onAuthChange = (isSignedIn) => {
-    if (isSignedIn) {
-      this.props.signIn(this.auth.currentUser.get().getId());
-    }else {
-      this.props.signOut();
-    }
-  };
-
   onSignOutClick = () => {
-    this.auth.signOut();
+    this.props.signOut();
   }
 
   setBackground = () => {
@@ -115,7 +94,9 @@ class Header extends React.Component {
   }
 
   hideHeader = () => {
-    document.querySelector('.headerContainer').style.display = 'none';
+    if (DOMGet('.headerContainer')) {
+      DOMGet('.headerContainer').style.display = 'none';
+    }
   }
 
   renderAuthButton() {
@@ -127,15 +108,6 @@ class Header extends React.Component {
       )
     }else {
       this.hideHeader();
-      // return (
-      //   <LoginContainer>
-      //     <h2>Log in to Milestones</h2>
-      //     <button className="ui red google button" onClick={this.onSignInClick}>
-      //         <Icon name="icon-google" />
-      //         Sign In
-      //     </button>
-      //   </LoginContainer>
-      // )
     }
   }
 
@@ -162,8 +134,6 @@ class Header extends React.Component {
           {!this.props.finish_stand_up ? 
              <Link to="/physical" onClick={this.reSetBackground} >Physical</Link> :
             <button disabled={true}>Physical</button>}
-          
-         
         </div>
         <div className="skill-info mt-4 pt-1 mt-1 pb-3 w-75 text-center">
           <h3 className="text-center">{!area_color ? stand_up_title : this.props.secure_attachment.main_info.title }</h3>
@@ -181,7 +151,8 @@ const mapStateToProps = state => {
     finish_stand_up: state.stand_up.finished_assesstment,
     finish_secure_attachment: state.secure_attachment.finished_assesstment,
     area_color: state.header.area_color,
-    isSignedIn: state.auth.isSignedIn
+    isSignedIn: state.auth.isSignedIn,
+    user: state.auth
   }
 }
 
