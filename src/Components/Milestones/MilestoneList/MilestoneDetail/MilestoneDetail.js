@@ -6,17 +6,19 @@ const ContainerMilDetail = styled.div`
   position: absolute;
   top: 8%;
   right: 8%;
-  border: 1px solir #ccc;
+  transform: translateX(1.5rem);
+  opacity: 0;
+  transition: all 0.2s ease-in;
 
   & > svg {
     width: 1.5rem;
     height: 1.5rem;
     fill: #fff;
-    transition: all 0.8s ease-out;
+    transition: all 0.2s ease-out;
   }
 
   &:hover > svg {
-    transform: rotate(360deg);
+    transform: scale(1.2);
   }
 
   &:hover > .details {
@@ -54,10 +56,8 @@ const ContainerMilDetail = styled.div`
 `
 
 const MilestoneDetail = (props) => {
-  console.log("rest: ", props)
-  console.log("mil: ", props.numMil)
   return (
-    <ContainerMilDetail>
+    <ContainerMilDetail className="mil-detail">
       <Icon name="icon-star" />
       <div className="details">
         <span>Milestones: <strong>{props.numMil}</strong></span>

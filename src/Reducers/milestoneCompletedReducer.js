@@ -1,7 +1,8 @@
 import { SET_MILESTONE_COMPLETED } from '../Types'
 
 const INITIALSTATE = {
-  num: null
+  num: null,
+  total: 2
 }
 
 export default (state = INITIALSTATE, action) => {

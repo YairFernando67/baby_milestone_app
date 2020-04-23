@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import MilestoneOne from './Milestones/MilestoneOne'
 import MilestoneTwo from './Milestones/MilestoneTwo'
+import GoogleLogin from '../Components/GoogleAuth/GoogleLogin'
 import Finished from './Finished/Finished'
 import Header from './Header/Header'
 import 'bootstrap/dist/css/bootstrap.css'
-import { Route, Router, Switch } from 'react-router-dom'
+import { Route, Router, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { fetchSecureAttachmentSkill, 
           fetchStandUpSkill, 
@@ -35,7 +36,9 @@ export class App extends Component {
       <div>
         <Router history={history}>
           <Header />
+            <Redirect from="/" to="/login" />
           <Switch>
+            <Route path="/login" component={GoogleLogin} />
             <Route path="/" exact component={MilestoneTwo} />
             <Route path="/physical" exact component={MilestoneOne} />
             <Route path="/finished_milestones" exact component={Finished} />
@@ -47,7 +50,6 @@ export class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("INITIAL STATE: ",state);
   return {
     stand_up: state.stand_up,
     secure_attachment: state.secure_attachment

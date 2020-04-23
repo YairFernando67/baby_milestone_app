@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { finishedAssesstmentStandUp, finishedAssesstmentSecureAttachment, toggleAreaColor } from '../../Actions'
+import { finishedAssesstmentStandUp, 
+        finishedAssesstmentSecureAttachment, 
+        toggleAreaColor,
+        milestoneCompleted } from '../../Actions'
 import styled from 'styled-components';
 import { milestoneError, milestoneSent } from '../Messages/Messages'
 import history from '../../history';
@@ -45,11 +48,17 @@ export const Pagination = (props) => {
         milestoneError((completed + uncompleted), props.stand_up_num_mil)
       } else {
         let rst = await milestoneSent();
-        console.log(rst);
         if (rst) {
           props.finishedAssesstmentSecureAttachment()
-          history.push('/physical')
-          props.toggleAreaColor();
+          if (props.mil_completed.num === 1) {
+            props.milestoneCompleted();
+            history.push('/finished_milestones')
+            document.querySelector('.headerContainer').style.display = 'none';
+          } else {
+            props.milestoneCompleted();
+            history.push('/physical')
+            props.toggleAreaColor();
+          }
         }
       }
     }
@@ -57,13 +66,20 @@ export const Pagination = (props) => {
     if(props.milestone[0].skill_id === 2) {
       let { completed, uncompleted } = props.secure_attachment_answers
       if ((completed + uncompleted) < props.secure_attachment_num_mil) {
-        milestoneError(props.secure_attachment_answers, props.secure_attachment_num_mil)
+        milestoneError((completed + uncompleted), props.secure_attachment_num_mil)
       } else {
         let rst = await milestoneSent();
         if (rst) {
-          props.finishedAssesstmentStandUp()
-          history.push('/')
-          props.toggleAreaColor();
+          props.finishedAssesstmentStandUp();
+          if (props.mil_completed.num === 1) {
+            props.milestoneCompleted();
+            history.push('/finished_milestones')
+            document.querySelector('.headerContainer').style.display = 'none';
+          } else {
+            props.milestoneCompleted();
+            history.push('/')
+            props.toggleAreaColor();
+          }
         }
       }
     }    
@@ -84,10 +100,12 @@ const mapStateToProps = state => {
     secure_attachment_answers: state.secure_attachment.answers,
     stand_up_num_mil: state.stand_up.numMil,
     secure_attachment_num_mil: state.secure_attachment.numMil,
+    mil_completed: state.mil_completed
   }
 }
 
 export default connect(mapStateToProps,{ 
   finishedAssesstmentStandUp,
   finishedAssesstmentSecureAttachment,
-  toggleAreaColor })(Pagination)
+  toggleAreaColor,
+  milestoneCompleted })(Pagination)

@@ -15,3 +15,6 @@ export const SET_AREA_COLOR = 'SET_AREA_COLOR'
 export const TOGGLE_AREA_COLOR = 'TOGGLE_AREA_COLOR'
 
 export const SET_MILESTONE_COMPLETED = 'SET_MILESTONE_COMPLETED'
+
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_OUT = 'SIGN_OUT';

@@ -11,8 +11,24 @@ import {
   UPDATE_ANSWERS_SECURE_ATTACHMENT,
   UPDATE_ANSWERS_STAND_UP,
   UPDATE_NUM_MIL_SECURE_ATTACHMENT,
-  UPDATE_NUM_MIL_STAND_UP
+  UPDATE_NUM_MIL_STAND_UP,
+  SET_MILESTONE_COMPLETED,
+  SIGN_IN,
+  SIGN_OUT
 } from '../Types'
+
+export const signIn = (userId) => {
+  return {
+    type: SIGN_IN,
+    payload: userId
+  };
+};
+
+export const signOut = () => {
+  return {
+    type: SIGN_OUT
+  };
+};
 
 export const fetchSecureAttachmentSkill = () => async (dispatch) => {
   const response = await kinedu.get('/2/milestones');
@@ -50,10 +66,8 @@ export const editAnswerStandUp = (mil, answers) => async (dispatch) => {
   }
 
   if (mil.answer === 'Completed' && before === 'Not Answer') {
-    console.log("entro");
     answers.completed++
   } else if (mil.answer === 'Completed') {
-    console.log("entro 2");
     answers.completed++
     answers.uncompleted--
   }
@@ -80,7 +94,6 @@ export const editAnswerStandUp = (mil, answers) => async (dispatch) => {
 }
 
 export const editAnswerSecureAttachment = (mil, answers) => async (dispatch) => {
-  console.log("MILESTONE ANSWER BEFORE: ", mil.answer)
   let before = mil.answer;
   switch (mil.answer) {
     case 'Not Answer':
@@ -96,13 +109,10 @@ export const editAnswerSecureAttachment = (mil, answers) => async (dispatch) => 
       break;
   }
 
-  console.log("MILESTONE ANSWER AFTER: ", mil.answer)
 
   if (mil.answer === 'Completed' && before === 'Not Answer') {
-    console.log("entro");
     answers.completed++
   } else if (mil.answer === 'Completed') {
-    console.log("entro 2");
     answers.completed++
     answers.uncompleted--
   }
@@ -156,7 +166,6 @@ export const toggleAreaColor = () => (dispatch) => {
 }
 
 export const updateAnswersStandUp = (answers) => (dispatch) => {
-  console.log("answers from the action creator: ", answers);
   dispatch({
     type: UPDATE_ANSWERS_STAND_UP,
     payload: answers
@@ -164,7 +173,6 @@ export const updateAnswersStandUp = (answers) => (dispatch) => {
 }
 
 export const updateAnswersSecureAttachment = (answers) => (dispatch) => {
-  console.log("answers from the action creator: ", answers);
   dispatch({
     type: UPDATE_ANSWERS_SECURE_ATTACHMENT,
     payload: answers
@@ -182,6 +190,12 @@ export const updateNumMilSecureAttachment = (num) => (dispatch) => {
   dispatch({
     type: UPDATE_NUM_MIL_SECURE_ATTACHMENT,
     payload: num
+  })
+}
+
+export const milestoneCompleted = () => (dispatch) => {
+  dispatch({
+    type: SET_MILESTONE_COMPLETED
   })
 }
 

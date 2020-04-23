@@ -26,7 +26,6 @@ export class MilestoneTwo extends Component {
     
     if (getLocalStorate('stand_up') !== null ) {
       let stand_up = getLocalStorate('stand_up');
-      // this.props.updateAnswersStandUp(stand_up.answers);
       const { milestones, main_info, answers, numMil } = stand_up;
       return <MilestoneList milestones={milestones} age_range={main_info.age_range} answers={answers} numMil={numMil} />
     }

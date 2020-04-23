@@ -12,6 +12,11 @@ const HeaderContainer = styled.div`
   text-align: center;
   color: #fff;
 
+  &:hover > .mil-detail {
+    transform: translate(0);
+    opacity: 1;
+  } 
+
   & > .menu-container {
     margin: 0 auto;
     
@@ -91,9 +96,8 @@ class Header extends React.Component {
       stand_up_description = description
     }
     const { answers, numMil } = this.props.secure_attachment;
-    console.log(answers)
     return(
-      <HeaderContainer area_color={area_color}>
+      <HeaderContainer area_color={area_color} className="headerContainer">
         { area_color ? <MilestoneDetail answers={answers} numMil={numMil} /> : 
               <MilestoneDetail answers={this.props.stand_up.answers} numMil={this.props.stand_up.numMil} />}
         
