@@ -19,14 +19,8 @@ const ContainerLogOut = styled.div`
     width: 1.5rem;
   }
 
-  &:hover button {
-    opacity: 1;
-    transform: translate(0);
-    display: block;
-  }
-
   &:hover button > svg {
-    fill: #1faddf;
+    
   }
 
   button {
@@ -34,40 +28,31 @@ const ContainerLogOut = styled.div`
     position: absolute;
     top: 60%;
     left: 92%;
-    width: 8rem;
-    opacity: 0;
-    display: none;
-    transition: all 0.2s ease;
-    padding: .5rem 1rem;
-
     transition: all 0.5s ease-in;
-    opacity: 0;
-    visivility: hidden;
     transform: translateX(20px);
-    background: #fff;
-    color: #1faddf;
-    border-radius: 3px;
-
-    &:hover {
-    }
-
-    svg {
-      height: 1rem;
-      width: 1rem;
-      fill: #fff;
-      margin-right: 0.5rem;
-    }
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    outline: none;
   }
+  
 `
 
 const LogOut = (props) => {
+
+  const showSideBar = () => {
+    document.querySelector('.sideBar').classList.add('show');
+  }
+
   return (
     <ContainerLogOut className="btnLogOut">
-      <Icon name="icon-settings" class="settings" />
-      <button className="ui red google button" onClick={props.onSignOutClick}>
+      <button onClick={() => showSideBar()} >
+        <Icon name="icon-settings" class="settings" />
+      </button>
+      {/* <button className="ui red google button" onClick={props.onSignOutClick}>
           <Icon name="icon-google" />
           Sign Out
-      </button>
+      </button> */}
     </ContainerLogOut>
     )
 };

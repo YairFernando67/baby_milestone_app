@@ -1,11 +1,13 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+
+import { DOMGet } from '../Dom/Dom'
+import LogOut from '../LogOutButton/LogOut';
 import { setAreaColor, toggleAreaColor, signIn, signOut } from '../../Actions'
 import MilestoneDetail from '../Milestones/MilestoneList/MilestoneDetail/MilestoneDetail';
-import LogOut from '../LogOutButton/LogOut';
-import { DOMGet } from '../Dom/Dom'
+import SideBarMenu from '../SideBarMenu/SideBarMenu';
 
 const HeaderContainer = styled.div`
   background: ${props => props.area_color ? "#D43571" : "#1FADDF"};
@@ -100,9 +102,7 @@ class Header extends React.Component {
   }
 
   renderAuthButton() {
-    if (this.props.isSignedIn === null) {
-      return null;
-    }else if (this.props.isSignedIn) {
+    if (this.props.isSignedIn) {
       return (
         <LogOut onSignOutClick={this.onSignOutClick} />
       )
@@ -123,6 +123,7 @@ class Header extends React.Component {
     const { answers, numMil } = this.props.secure_attachment;
     return(
       <HeaderContainer area_color={area_color} className="headerContainer">
+        <SideBarMenu />
         { area_color ? <MilestoneDetail answers={answers} numMil={numMil} /> : 
               <MilestoneDetail answers={this.props.stand_up.answers} numMil={this.props.stand_up.numMil} />}
         {this.renderAuthButton()}

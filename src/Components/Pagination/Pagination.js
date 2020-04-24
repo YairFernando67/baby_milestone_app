@@ -86,7 +86,7 @@ export const Pagination = (props) => {
   }
   const { page, total_pages } = props
   return (
-    <PaginationContainer className="mt-5 d-flex justify-content-center mb-5 pb-5 pt-5 px-5">
+    <PaginationContainer className="mt-5 d-flex justify-content-center pb-5 pt-5 px-5">
       {page > 1 ? <button onClick={prevPage}>Back</button> : '' }
       {page < total_pages ? <button onClick={nextPage}>Continue</button> : '' }
       {page === total_pages ? <button onClick={sendAssestment}>Finish</button> : '' }

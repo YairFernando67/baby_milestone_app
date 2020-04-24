@@ -16,6 +16,7 @@ import { fetchSecureAttachmentSkill,
           signIn } from '../Actions'
 import history from '../history';
 import { getLocalStorate } from './LocalStorage/LocalStorage';
+import './Styles/Styles.scss'
 
 export class App extends Component {
   componentDidMount() {
