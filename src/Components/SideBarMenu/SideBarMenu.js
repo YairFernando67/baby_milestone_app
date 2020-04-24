@@ -24,11 +24,44 @@ const SideBar = styled.div`
     margin-bottom: .5rem;
   }
 
-  img {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 100px;
+  .sideBarImg > .name {
+    transition: all 0.2s ease-in;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
+
+  .sideBarImg {
+    width: 6rem;
+    height: 6rem;
     margin-bottom: 1rem;
+    position: relative;
+    backface-visibility: hidden;
+    outline: none;
+    overflow: hidden;
+    border-radius: 100px;
+    
+    & > img {
+      clip-path: circle(50% at 50% 50%);
+      shape-outside: circle(50% at 50% 50%);
+      width: 100%;
+      transform: scale(1.2);
+      backface-visibility: hidden;
+      transition: all 0.5s;
+    }
+  }
+  
+  .sideBarImg:hover > .name {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  .sideBarImg:hover > img {
+    transform: scale(1);
+    filter: blur(1px) brightness(90%);
   }
 
   button {
@@ -70,8 +103,10 @@ class SideBarMenu extends React.Component {
   render() {
     return (
       <SideBar className="sideBar">
-        <img src={this.props.userInfo.photoUrl} alt="Profile" />
-        <span>{this.props.userInfo.name}</span>
+        <div className="sideBarImg">
+          <img src={this.props.userInfo.photoUrl} alt="Profile" />
+          <span className="name">{this.props.userInfo.name}</span>
+        </div>
         <span>{this.props.userInfo.email}</span>
         <button onClick={this.clickSignOut}>Sign Out</button>
       </SideBar>
