@@ -25,18 +25,21 @@ const VENDOR_LIBS = [
   "redux-thunk",
   "styled-components",
   "sweetalert2",
-  "babel-polyfill"
+  "babel-polyfill",
+  "express"
 ]
 
 module.exports = {
-  entry: {
+  entry: path.resolve('src', 'index.js')
     // entry: ['./src/index.js']
-    bundle: './src/index.js',
-    vendor: VENDOR_LIBS
-  },
+    // bundle: './src/index.js',
+    // vendor: VENDOR_LIBS
+  //}
+  ,
   node: {
     fs: 'empty'
   },
+  mode: 'development',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].[chunkhash].js'
