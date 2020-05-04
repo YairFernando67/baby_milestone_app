@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-
+require('babel-polyfill');
 const milestoneError = (answers, num) => {
   Swal.fire({
     icon: 'error',
