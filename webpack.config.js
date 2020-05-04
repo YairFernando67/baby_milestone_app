@@ -29,11 +29,11 @@ const VENDOR_LIBS = [
 ]
 
 module.exports = {
-  // entry: 
-    entry: ['./src/index.js']
-    // bundle: './src/index.js'
-    // vendor: VENDOR_LIBS
-  ,
+  entry: {
+    // entry: ['./src/index.js']
+    bundle: './src/index.js',
+    vendor: VENDOR_LIBS
+  },
   node: {
     fs: 'empty'
   },
