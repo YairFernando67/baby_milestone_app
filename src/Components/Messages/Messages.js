@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2';
+import 'regenerator-runtime/runtime';
 
 const milestoneError = (answers, num) => {
   Swal.fire({
