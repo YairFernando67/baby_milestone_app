@@ -39,7 +39,7 @@ module.exports = {
   node: {
     fs: 'empty'
   },
-  mode: 'development',
+  mode: 'production',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].[chunkhash].js'
@@ -69,7 +69,7 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: process.env.NODE_ENV === 'development'
+              hmr: process.env.NODE_ENV === 'production'
             }
           },
           'css-loader',

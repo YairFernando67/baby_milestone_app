@@ -27,11 +27,11 @@
     "express": "^4.17.1"
   },
   "scripts": {
-    "build": "concurrently --kill-others npm:webpack",
-    "webpack": "npm run clean && webpack --mode=development --watch",
-    "server": "node server.js",
+    "server": "concurrently --kill-others npm:webpackbuild",
+    "webpackbuild": "npm run clean && webpack --mode=development --watch",
+    "build": "webpack --mode=production",
     "clean": "rimraf dist",
-    "prod": "webpack --mode=production",
+    "start": "node server.js",
     "heroku-postbuild": "webpack -p"
   },
   "eslintConfig": {
