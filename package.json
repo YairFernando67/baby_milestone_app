@@ -27,13 +27,9 @@
     "express": "^4.17.1"
   },
   "scripts": {
-<<<<<<< HEAD
     "server": "concurrently --kill-others npm:webpackbuild",
     "webpackbuild": "npm run clean && webpack --mode=development --watch",
     "build": "webpack --mode=production",
-=======
-    "build": "webpack --mode production",
->>>>>>> ef184aac34c148636bd501cfb11269e6a1bc0659
     "clean": "rimraf dist",
     "start": "node server.js",
     "heroku-postbuild": "webpack -p"
@@ -56,7 +52,6 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
-<<<<<<< HEAD
     "@babel/preset-env": "^7.9.6",
     "babel-loader": "^8.1.0",
     "babel-preset-minify": "^0.5.1",
@@ -66,23 +61,6 @@
     "concurrently": "^5.1.0",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.5.2",
-=======
-    "@babel/preset-env": "^7.9.5",
-    "@babel/preset-react": "^7.9.4",
-    "babel-jest": "^25.4.0",
-    "babel-preset-minify": "^0.5.1",
-    "babel-loader": "^8.1.0",
-    "browser-sync": "^2.26.7",
-    "browser-sync-webpack-plugin": "^2.2.2",
-    "webpack-dev-middleware": "^3.7.2",
-    "mini-css-extract-plugin": "^0.9.0",
-    "copy-webpack-plugin": "^5.1.1",
-    "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "clean-webpack-plugin": "^3.0.0",
-    "concurrently": "^5.1.0",
-    "css-loader": "^3.5.2",
-    "rimraf": "^3.0.2",
->>>>>>> ef184aac34c148636bd501cfb11269e6a1bc0659
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
@@ -90,7 +68,6 @@
     "html-webpack-plugin": "^4.2.0",
     "image-webpack-loader": "^6.0.0",
     "jest": "^25.4.0",
-<<<<<<< HEAD
     "mini-css-extract-plugin": "^0.9.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "rimraf": "^3.0.2",
@@ -104,16 +81,5 @@
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-middleware": "^3.7.2"
-=======
-    "sass": "^1.26.3",
-    "sass-loader": "^8.0.2",
-    "terser-webpack-plugin": "^2.3.5",
-    "style-loader": "^1.1.3",
-    "svg-url-loader": "^5.0.0",
-    "url-loader": "^4.1.0",
-    "wait-on": "^4.0.2",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
->>>>>>> ef184aac34c148636bd501cfb11269e6a1bc0659
   }
 }
